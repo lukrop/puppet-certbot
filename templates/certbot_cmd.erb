@@ -1,0 +1,22 @@
+certbot certonly --webroot -t --agree-tos -q --expand -w <%= @webroot -%>
+<%- @domains.each do |domain| -%> -d <%= domain.strip -%> <%- end -%>
+<% if @mail.nil? -%>
+ --register-unsafely-without-email
+<% else -%>
+ -m <%= @mail -%>
+<% end -%>
+<% if @force_renewal -%>
+ --force-renewal
+<% end -%>
+<% if not @cert_path.nil? -%>
+ --cert-path <%= @cert_path -%>
+<% end -%>
+<% if not @key_path.nil?-%>
+ --key-path <%= @key_path -%>
+<% end -%>
+<% if not @chain_path.nil? -%>
+ --chain-path <%= @chain_path -%>
+<% end -%>
+<% if not @fullchain_path.nil? -%>
+ --fullchain-path <%= @fullchain_path -%>
+<% end -%>
